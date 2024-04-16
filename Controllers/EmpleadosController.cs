@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using SistemaLaboral.Models;
 using SistemaLaboral.Data;
 
 
@@ -18,6 +19,13 @@ namespace SistemaLaboral.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+          public async Task<IActionResult> Register(Empleado empleado)
+        {
+           _context.Empleados.Add(empleado);
+           await _context.SaveChangesAsync();
+           return RedirectToAction("Index");
         }
 
    

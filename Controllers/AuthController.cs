@@ -16,6 +16,11 @@ namespace SistemaLaboral.Controllers
         public IActionResult Index(){
             return View();
         }
+
+           public IActionResult Register()
+        {
+            return View();
+        }
         
     }
 }
