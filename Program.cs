@@ -12,11 +12,11 @@ builder.Services.AddDbContext<SistemaContext>(options =>
         )
     );
 
-//Configuracion de sesion
-builder.Services.AddSession(option => {
-    option.IdleTimeout = TimeSpan.FromMinutes(30);
-    option.Cookie.HttpOnly = true;
-    option.Cookie.IsEssential = true;
+//Configuracion del servicio para la sesion
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(10); //duracion de la sesion
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -35,7 +35,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-//Configuracion de sesion 
+
+//middleware para la sesion 
 app.UseSession();
 
 app.MapControllerRoute(

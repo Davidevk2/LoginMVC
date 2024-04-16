@@ -4,29 +4,10 @@
 
 
 <div class="container mt-5">
-    @if(ViewBag.IdEmpleado != null){
-        <h2>User @ViewBag.IdEmpleado</h2>
-    }else{  
-        <h2>User no encontrado</h2>
-    }
+    
+    <h2>Hola empleado @ViewBag.Nombre </h2>
 
-    <form asp-controller="Auth" asp-action="Logout" method="post">
+    <form asp-controller="" asp-action="" method="post">
         <button class="btn btn-sm btn-dark">Cerrar Sesion</button>
     </form>
-    <div class="card">
-        <div class="card-body">
-            <h2 class="card-title">Sistema de ingresos y salidas</h2>
-            <form action="">
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-lg btn-success">Registrar Ingreso</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-lg btn-dark">Registrar Salida</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 </div>

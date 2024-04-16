@@ -15,41 +15,31 @@ namespace SistemaLaboral.Controllers
         {
             _context = context;
         }
-
+        //vista login 
         public IActionResult Index(){
             return View();
         }
 
+        //accion de login
         [HttpPost]
-        public async Task<IActionResult>Login(string identificacion, string password){
+        public async Task<IActionResult> Login(string identificacion, string password){
 
-            var user = _context.Empleados.FirstOrDefault(u => u.Identificacion == identificacion);
+            var usuarioLoggeado = await  _context.Empleados.FirstOrDefaultAsync(em => em.Identificacion == identificacion);
 
-            if (user != null && user.Password == password)
-            {
-                // Guardar información del usuario en la sesión
-                HttpContext.Session.SetString("UserId", user.Id.ToString());
-                HttpContext.Session.SetString("UserName", user.Nombres);
-                // ViewBag.User = user.Id.ToString();
-                // ViewBag.Login = true;
-
-
+            if(usuarioLoggeado != null && usuarioLoggeado.Password == password){
+                HttpContext.Session.SetString("Nombre", usuarioLoggeado.Nombres); //crear variable de sesion 
                 return RedirectToAction("Index", "Empleados");
+            }else{
+
+             return RedirectToAction("Index"); //retornar al login
             }
 
 
-            return RedirectToAction("Index");
         }
 
            public IActionResult Register()
         {
             return View();
-        }
-
-        public IActionResult Logout(){
-
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Auth");
         }
         
     }
