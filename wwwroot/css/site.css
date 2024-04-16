@@ -19,4 +19,11 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #EBEBEB;
+}
+
+.card{
+  width: 50%;
+  margin: auto;
+
 }
