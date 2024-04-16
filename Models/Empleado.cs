@@ -18,7 +18,7 @@ namespace SistemaLaboral.Models
         [Required]
         public string? Password {get; set;}
         public DateTime? UltimoIngreso {get; set;}
-        public DateTime? FechaRegistro {get; set;}
+        public DateTime? FechaRegistro {get;}
         
     }
 }

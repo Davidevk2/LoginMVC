@@ -4,9 +4,9 @@ using SistemaLaboral.Models;
 
 namespace SistemaLaboral.Data
 {
-    public class SistemaLaboral : DbContext{
+    public class SistemaContext : DbContext{
 
-        public SistemaLaboral(DbContextOptions<SistemaLaboral> options) : base(options){
+        public SistemaContext(DbContextOptions<SistemaContext> options) : base(options){
 
 
         }
