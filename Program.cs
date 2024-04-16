@@ -12,6 +12,13 @@ builder.Services.AddDbContext<SistemaContext>(options =>
         )
     );
 
+//Configuracion de sesion
+builder.Services.AddSession(option => {
+    option.IdleTimeout = TimeSpan.FromMinutes(30);
+    option.Cookie.HttpOnly = true;
+    option.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +35,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+//Configuracion de sesion 
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
