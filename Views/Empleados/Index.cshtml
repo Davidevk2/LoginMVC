@@ -9,6 +9,10 @@
     }else{  
         <h2>User no encontrado</h2>
     }
+
+    <form asp-controller="Auth" asp-action="Logout" method="post">
+        <button class="btn btn-sm btn-dark">Cerrar Sesion</button>
+    </form>
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">Sistema de ingresos y salidas</h2>

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using SistemaLaboral.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SistemaLaboral.Controllers
 {
@@ -43,6 +44,12 @@ namespace SistemaLaboral.Controllers
            public IActionResult Register()
         {
             return View();
+        }
+
+        public IActionResult Logout(){
+
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Auth");
         }
         
     }
