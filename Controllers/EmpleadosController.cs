@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaLaboral.Models;
 using SistemaLaboral.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SistemaLaboral.Controllers
@@ -15,20 +16,34 @@ namespace SistemaLaboral.Controllers
         {
             _context = context;
         }
-
-        public IActionResult Index()
-        {
+        public IActionResult Index(){
             ViewBag.IdEmleado = HttpContext.Session.GetString("IdEmpleado"); //variable de sesion para la vista
             ViewBag.Nombre = HttpContext.Session.GetString("Nombre"); //variable de sesion para la vista
+
             return View();
         }
 
+        public async Task<IActionResult> Lista()
+        {
+            ViewBag.IdEmleado = HttpContext.Session.GetString("IdEmpleado"); //variable de sesion para la vista
+            ViewBag.Nombre = HttpContext.Session.GetString("Nombre"); //variable de sesion para la vista
+
+            return View( await _context.Empleados.ToListAsync());
+        }
+
+        //Vista para crear empleados
+        public IActionResult Create(){
+            return View();
+        }    
+
+        //accion para registrar empleado    
           public async Task<IActionResult> Register(Empleado empleado)
         {
            _context.Empleados.Add(empleado);
            await _context.SaveChangesAsync();
            return RedirectToAction("Index");
         }
+
 
    
     }
