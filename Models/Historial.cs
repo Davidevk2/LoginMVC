@@ -7,6 +7,8 @@ namespace SistemaLaboral.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
         [ForeignKey ("Empleados")]
         public int IdEmpleado { get; set; }
         public DateTime FechaIngreso {get;}
