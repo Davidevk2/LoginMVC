@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using SistemaLaboral.Data;
+using SistemaLaboral.Models;
 
 namespace SistemaLaboral.Controllers
 {
@@ -21,9 +22,21 @@ namespace SistemaLaboral.Controllers
             return View();
         }
 
-        public async Task<IActionResult> RegistrarIngreso(){
+        [HttpPost]
+        public async Task<IActionResult> RegistrarIngreso([Bind("IdEmpleado")]Historial historial){
 
-            return RedirectToAction("Index", "Empleados");
+            try{
+                _context.Historial.Add(historial);
+                await _context.SaveChangesAsync();
+                
+                return RedirectToAction("Index", "Empleados");
+
+            }catch(Exception ex){
+                ViewBag.ErrorMessage = "Error"+ex;
+                return View(ViewBag.ErrorMessage);
+            }
+           
+
         }
 
        

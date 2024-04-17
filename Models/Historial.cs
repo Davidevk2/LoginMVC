@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaLaboral.Models
 {
@@ -6,7 +7,9 @@ namespace SistemaLaboral.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime FechaIngreso {get; set;}
+        [ForeignKey ("Empleados")]
+        public int IdEmpleado { get; set; }
+        public DateTime FechaIngreso {get;}
         public DateTime FechaSalida {get; set;}
 
         public string? Observaciones {get; set;}

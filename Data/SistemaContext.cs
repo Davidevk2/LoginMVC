@@ -12,7 +12,7 @@ namespace SistemaLaboral.Data
         }
 
         //Modelos a utilizar
-        public DbSet<Historial> Historials { get; set; }
+        public DbSet<Historial> Historial { get; set; }
         public DbSet<Empleado> Empleados { get; set; }
 
     }
