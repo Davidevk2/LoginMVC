@@ -21,6 +21,11 @@ namespace SistemaLaboral.Controllers
             return View();
         }
 
+        public async Task<IActionResult> RegistrarIngreso(){
+
+            return RedirectToAction("Index", "Empleados");
+        }
+
        
     }
 }

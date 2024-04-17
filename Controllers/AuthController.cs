@@ -27,7 +27,9 @@ namespace SistemaLaboral.Controllers
             var usuarioLoggeado = await  _context.Empleados.FirstOrDefaultAsync(em => em.Identificacion == identificacion);
 
             if(usuarioLoggeado != null && usuarioLoggeado.Password == password){
+                HttpContext.Session.SetString("IdEmpleado", usuarioLoggeado.Id.ToString());
                 HttpContext.Session.SetString("Nombre", usuarioLoggeado.Nombres); //crear variable de sesion 
+
                 return RedirectToAction("Index", "Empleados");
             }else{
 

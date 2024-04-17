@@ -18,6 +18,7 @@ namespace SistemaLaboral.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.IdEmleado = HttpContext.Session.GetString("IdEmpleado"); //variable de sesion para la vista
             ViewBag.Nombre = HttpContext.Session.GetString("Nombre"); //variable de sesion para la vista
             return View();
         }
