@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SistemaLaboral.Data;
 using SistemaLaboral.Models;
 
@@ -17,27 +18,34 @@ namespace SistemaLaboral.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ViewBag.IdEmleado = HttpContext.Session.GetString("IdEmpleado"); //variable de sesion para la vista
+            ViewBag.Nombre = HttpContext.Session.GetString("Nombre");
+            return View( await _context.Historial.ToListAsync());
         }
 
         [HttpPost]
         public async Task<IActionResult> RegistrarIngreso([Bind("IdEmpleado")]Historial historial){
 
-            try{
+            /* try{ */
+           
                 _context.Historial.Add(historial);
                 await _context.SaveChangesAsync();
                 
                 return RedirectToAction("Index", "Empleados");
 
-            }catch(Exception ex){
+           
+
+         /*    }catch(Exception ex){
                 ViewBag.ErrorMessage = "Error"+ex;
                 return View(ViewBag.ErrorMessage);
-            }
+            } */
            
 
         }
+
+        
 
        
     }

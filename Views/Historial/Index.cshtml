@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Historial";
+}
+
+<div class="container mt-5">
+    <h1>Historial de ingresos</h1>
+   <div class="row">
+
+   </div>
+   <table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>IdEmpleado</th>
+            <th>Fecha Ingreso</th>
+            <th>Fecha Salida</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{int numRow = 1;}
+        @foreach(var row in Model){
+            <tr>
+                <td>@numRow</td>
+                <td>@row.Id</td>
+                <td>@row.IdEmpleado</td>
+                <td>@row.FechaIngreso</td>
+                <td>@row.FechaSalida</td>
+                <td>@row.Observaciones</td>
+                <td><a class="btn btn-sm btn-primary">Editar Observacion</a></td>
+            </tr>
+            numRow++;
+        }
+    </tbody>
+
+   </table>
+
+</div>
