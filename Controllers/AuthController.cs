@@ -30,6 +30,17 @@ namespace SistemaLaboral.Controllers
                 HttpContext.Session.SetString("IdEmpleado", usuarioLoggeado.Id.ToString());
                 HttpContext.Session.SetString("Nombre", usuarioLoggeado.Nombres); //crear variable de sesion 
 
+                try{
+                    //Actualizar el ultimo ingreso del usuario
+                    usuarioLoggeado.UltimoIngreso = DateTime.Now;
+                    _context.Empleados.Update(usuarioLoggeado);
+                    await _context.SaveChangesAsync();
+
+                }catch(DbUpdateException err){
+                    return Json("Error", err);
+                }
+
+
                 return RedirectToAction("Index", "Empleados");
             }else{
 

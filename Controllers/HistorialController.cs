@@ -37,7 +37,7 @@ namespace SistemaLaboral.Controllers
             var id = Int32.Parse(HttpContext.Session.GetString("IdEmpleado"));
         
             try{
-                historial.IdEmpleado =id;
+                historial.IdEmpleado = id;
 
                 _context.Historial.Add(historial);
                 await _context.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace SistemaLaboral.Controllers
 
 
             }catch(Exception ex){
-                ViewBag.ErrorMessage = "Error"+ex;
+                ViewBag.ErrorMessage = "Error"+ ex;
                 return View(ViewBag.ErrorMessage);
             }
            
