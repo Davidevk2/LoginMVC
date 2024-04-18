@@ -2,7 +2,6 @@
     ViewData["Title"] ="Index";
 }
 
-
 <div class="container mt-5">
 
     <div class="card">
@@ -14,13 +13,7 @@
                 <h3>Saludo!</h3>
             }
             <h2 class="card-title">Sistema de ingresos y salidas</h2>
-            <form asp-controller="Historial" asp-action="RegistrarIngreso" asp-route-id="@ViewBag.Empleado" method="post">
-                <div class="row  hidden">
-                 @*    <div class="form-group">
-                        <label for="">Id:</label>
-                        <input type="text" name="IdEmpleado" value="@ViewBag.IdEmleado" class="form-control" readonly>
-                    </div> *@
-                </div>
+            <form asp-controller="Historial" asp-action="RegistrarIngreso" method="post">
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-lg btn-success">Registrar Ingreso &rightarrow;</button>
