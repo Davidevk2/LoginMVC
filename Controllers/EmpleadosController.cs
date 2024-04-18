@@ -47,6 +47,15 @@ namespace SistemaLaboral.Controllers
         }
 
 
+        public async Task<IActionResult> Eliminar(int id){
+            var empleado = await  _context.Empleados.FindAsync(id);
+
+            _context.Empleados.Remove(empleado);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Empleados");
+        }
+
+
    
     }
 }
