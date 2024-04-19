@@ -50,8 +50,6 @@ namespace SistemaLaboral.Controllers
                     return RedirectToAction("Index");
                 }
                 
-
-
             }else{
              TempData["Message"] = "Identificacion o contraseña icorrectas"; 
              return RedirectToAction("Index"); //retornar al login

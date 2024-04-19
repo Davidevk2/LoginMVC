@@ -17,9 +17,24 @@ namespace SistemaLaboral.Controllers
             _context = context;
         }
 
-        public IActionResult Index(){
+        public async Task<IActionResult> Index(){
             ViewBag.IdEmleado = HttpContext.Session.GetString("IdEmpleado"); //variable de sesion para la vista
             ViewBag.Nombre = HttpContext.Session.GetString("Nombre"); //variable de sesion para la vista
+
+            var salida = await _context.Historial.OrderBy(his => his.Id).LastOrDefaultAsync(his => his.IdEmpleado == Int32.Parse(HttpContext.Session.GetString("IdEmpleado")));
+            ViewBag.checkin = salida.FechaIngreso;
+            ViewBag.checkout = salida.FechaSalida;
+
+            if(salida != null){
+                ViewBag.AllowIn  = true;
+            }else{
+                ViewBag.AllowIn  = false;
+
+            }
+
+            if(ViewBag.checkout == null){
+                 ViewBag.AllowIn  = false;
+            }
 
             return View();
         }
