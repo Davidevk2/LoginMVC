@@ -23,13 +23,8 @@ namespace SistemaLaboral.Controllers
         {
             int id  = Int32.Parse(HttpContext.Session.GetString("IdEmpleado")); //variable de sesion para la vista
             ViewBag.Nombre = HttpContext.Session.GetString("Nombre");
-
-
             //Listar solo los registros del empleado
             var result = from historial in   _context.Historial select historial;
-
-        /*     var Hora = result.Where(his => his.IdEmpleado == id).OrderByDescending(his => his.FechaIngreso).Take(1);
-            return Json("Tenemos" + Hora); */
 
             result = result.Where(his => his.IdEmpleado == id);
 
@@ -37,13 +32,16 @@ namespace SistemaLaboral.Controllers
              
         }
         
-        [HttpPost]
-        public async Task<IActionResult> RegistrarIngreso( [Bind("IdEmpleado, FechaIngreso")]Historial historial){
+        public async Task<IActionResult> RegistrarIngreso(){
             var id = Int32.Parse(HttpContext.Session.GetString("IdEmpleado"));
         
             try{
-                historial.IdEmpleado = id;
-                historial.FechaIngreso = DateTime.Now;
+                //objeto de registro
+                var historial = new Historial(){
+                    IdEmpleado = id,
+                    FechaIngreso = DateTime.Now
+
+                };
 
                 _context.Historial.Add(historial);
                 await _context.SaveChangesAsync();
@@ -59,6 +57,29 @@ namespace SistemaLaboral.Controllers
            
 
         }
+
+         public async Task<IActionResult> RegistrarSalida(){
+            var id = Int32.Parse(HttpContext.Session.GetString("IdEmpleado"));
+        
+            try{
+                var historial = await _context.Historial.OrderBy(his => his.Id).LastOrDefaultAsync(his => his.IdEmpleado == id && his.FechaSalida == null);
+
+                historial.FechaSalida = DateTime.Now;
+                await _context.SaveChangesAsync();
+                
+                TempData["MessageSuccess"] = "Se ha registrado con exito!";
+                return RedirectToAction("Index", "Empleados");
+
+
+            }catch(Exception ex){
+                ViewBag.ErrorMessage = "Error"+ ex;
+                return View(ViewBag.ErrorMessage);
+            }
+           
+
+        }
+
+        
 
         
  
