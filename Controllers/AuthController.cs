@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using SistemaLaboral.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
 
 namespace SistemaLaboral.Controllers
 {
@@ -26,24 +27,33 @@ namespace SistemaLaboral.Controllers
 
             var usuarioLoggeado = await  _context.Empleados.FirstOrDefaultAsync(em => em.Identificacion == identificacion);
 
-            if(usuarioLoggeado != null && usuarioLoggeado.Password == password){
-                HttpContext.Session.SetString("IdEmpleado", usuarioLoggeado.Id.ToString());
-                HttpContext.Session.SetString("Nombre", usuarioLoggeado.Nombres); //crear variable de sesion 
+            if(usuarioLoggeado != null){
+                if(usuarioLoggeado.Password == password){
 
-                try{
-                    //Actualizar el ultimo ingreso del usuario
-                    usuarioLoggeado.UltimoIngreso = DateTime.Now;
-                    _context.Empleados.Update(usuarioLoggeado);
-                    await _context.SaveChangesAsync();
+                    HttpContext.Session.SetString("IdEmpleado", usuarioLoggeado.Id.ToString());
+                    HttpContext.Session.SetString("Nombre", usuarioLoggeado.Nombres); //crear variable de sesion 
 
-                }catch(DbUpdateException err){
-                    return Json("Error", err);
+                    try{
+                        //Actualizar el ultimo ingreso del usuario
+                        usuarioLoggeado.UltimoIngreso = DateTime.Now;
+                        _context.Empleados.Update(usuarioLoggeado);
+                        await _context.SaveChangesAsync();
+
+                        return RedirectToAction("Index", "Empleados");
+
+                    }catch(DbUpdateException  err){
+                    
+                        return View(err);
+                    }
+                }else{
+                    TempData["Message"] = "Identificacion o contraseña icorrectas"; 
+                    return RedirectToAction("Index");
                 }
+                
 
 
-                return RedirectToAction("Index", "Empleados");
             }else{
-
+             TempData["Message"] = "Identificacion o contraseña icorrectas"; 
              return RedirectToAction("Index"); //retornar al login
             }
 
