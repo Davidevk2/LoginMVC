@@ -41,6 +41,7 @@ namespace SistemaLaboral.Controllers
         //accion para registrar empleado    
           public async Task<IActionResult> Register(Empleado empleado)
         {
+            empleado.FechaRegistro = DateTime.Now;
            _context.Empleados.Add(empleado);
            await _context.SaveChangesAsync();
            return RedirectToAction("Index");
