@@ -21,11 +21,10 @@
                 </div>
             }   
  
-            @if(ViewBag.AllowIn){
+            @if(ViewBag.Salida == null){
                 <a asp-controller="Historial" asp-action="RegistrarIngreso"  class="btn btn-lg btn-success">Registrar Ingreso &rightarrow;</a>
 
             }else{
-
                 <a asp-controller="Historial" asp-action="RegistrarSalida"  class="btn btn-lg btn-dark">&leftarrow; Registrar Salida </a>
             }
         </div>
