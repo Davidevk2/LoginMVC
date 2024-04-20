@@ -35,7 +35,7 @@
                 <td>@row.FechaIngreso</td>
                 <td>@row.FechaSalida</td>
                 <td>@row.Observaciones</td>
-                <td><a class="btn btn-sm btn-primary">Editar Observacion</a></td>
+                <td><a asp-controller="Historial" asp-action="Editar" asp-route.id="@row.Id" class="btn btn-sm btn-primary">Editar Observacion</a></td>
             </tr>
             numRow++;
         }
